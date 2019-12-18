@@ -1,0 +1,17 @@
+= 简介
+
+peacetrue-template-gradle 是一个基于 gradle 的 xref:github-template.adoc[github 模板项目]。
+
+包含以下内容：
+
+* 基于 jdk8+
+* 使用 gradle-5.6.2
+* build.gradle中包含以下内容：
+** idea 插件，支持在 Intellij IDEA 中开发
+** maven-publish 插件，发布类库到 maven 中央仓库
+** 依赖版本管理
+*** spring-boot-dependencies:1.5.20.RELEASE
+*** peacetrue-dependencies:1.0.4-SNAPSHOT
+* 文档目录 /docs 包含以下内容：
+** ``README.graffle``设计图表
+** 一个符合 https://antora.org[antora^] 要求的文档结构

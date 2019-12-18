@@ -1,0 +1,145 @@
+plugins {
+    id("java-library")
+    id("io.spring.dependency-management") version "1.0.8.RELEASE"
+//    id("org.springframework.boot") version "1.5.20.RELEASE" apply(false)
+    id("maven-publish")
+    id("signing")
+    id("idea")
+}
+
+allprojects { project ->
+
+    group "com.github.peacetrue.template"
+    version "1.0-SNAPSHOT"
+    description "gradle模板"
+
+    apply plugin: "java"
+    apply plugin: "java-library"
+    sourceCompatibility = 8
+    targetCompatibility = 8
+
+    apply plugin: "idea"
+    idea {
+        module {
+            inheritOutputDirs = false
+            outputDir = tasks.compileJava.destinationDir
+            testOutputDir = tasks.compileTestJava.destinationDir
+            downloadSources = true
+            downloadJavadoc = false
+        }
+    }
+
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        mavenCentral()
+        jcenter()
+    }
+
+    apply plugin: "io.spring.dependency-management"
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:1.5.20.RELEASE"
+//            mavenBom "org.springframework.boot:spring-boot-dependencies:2.1.8.RELEASE"
+            mavenBom "com.github.peacetrue:peacetrue-dependencies:1.0.4-SNAPSHOT"
+//            mavenBom "com.github.peacetrue:peacetrue-dependencies:2.0.0-SNAPSHOT"
+        }
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+        implementation("com.google.code.findbugs:jsr305")
+
+        testImplementation "junit:junit"
+        testCompileOnly "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
+        testImplementation "ch.qos.logback:logback-classic"
+    }
+
+    task antoraCopySourceToExample() {
+        doLast {
+            def path = "${rootDir.path}/docs/antora/modules/ROOT/examples/${project.name}"
+            delete {
+                delete(path)
+            }
+            copy {
+                from sourceSets.main.allSource into(path)
+            }
+            copy {
+                from sourceSets.test.allSource into(path)
+            }
+        }
+    }
+
+    task sourcesJar(type: Jar) {
+        archiveClassifier = "sources"
+        from sourceSets.main.allJava
+    }
+
+    task javadocJar(type: Jar) {
+        archiveClassifier = "javadoc"
+        from javadoc.destinationDir
+    }
+
+    def repository_snapshots = "https://oss.sonatype.org/content/repositories/snapshots/"
+    def repository_releases = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                pom {
+                    name = project.name
+                    description = project.description
+                    url = "https://github.com/peacetrue/${project.name}"
+                    licenses {
+                        license {
+                            name = "The Apache License, Version 2.0"
+                            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "xiayouxue"
+                            name = "xiayouxue"
+                            email = "xiayouxue@hotmail.com"
+                        }
+                    }
+                    scm {
+                        connection = "https://github.com/peacetrue/${project.name}.git"
+                        developerConnection = "https://github.com/peacetrue/${project.name}.git"
+                        url = "https://github.com/peacetrue/peacetrue/${project.name}"
+                    }
+                }
+
+                from components.java
+
+                artifact sourcesJar
+                artifact javadocJar
+            }
+        }
+
+        repositories {
+            maven {
+                url version.endsWith("SNAPSHOT") ? repository_snapshots : repository_releases
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.mavenJava
+    }
+
+}
+
+
+
+
+
+
+
