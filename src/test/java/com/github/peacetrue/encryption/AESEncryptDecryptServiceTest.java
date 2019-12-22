@@ -26,8 +26,6 @@ public class AESEncryptDecryptServiceTest {
         SecretKey secretKey = generator.generateKey();
         System.out.println(Arrays.toString(secretKey.getEncoded()));
         System.out.println(new String(secretKey.getEncoded()));
-        System.out.println(EncryptionUtils.encode(secretKey.getEncoded(), EncryptionUtils.HEX));
-        System.out.println(EncryptionUtils.encode(secretKey.getEncoded(), EncryptionUtils.BASE_64));
     }
 
     public String encrypt(String plaintext, EncoderDecoder encoderDecoder) {
