@@ -1,6 +1,6 @@
 = 简介
 
-peacetrue-template-gradle 是一个基于 gradle 的 xref:github-template.adoc[github 模板项目]。
+peacetrue-encryption 是一个基于 gradle 的 xref:github-template.adoc[github 模板项目]。
 
 包含以下内容：
 

@@ -4,7 +4,7 @@
 site:
   title: 真实安宁
   url: https://peacetrue.github.io
-  start_page: peacetrue-template-gradle::index.adoc
+  start_page: peacetrue-encryption::index.adoc
 content:
   branches: master
   sources:
