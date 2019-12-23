@@ -1,13 +1,31 @@
-= gradle 模板项目
+= 加密解密组件
 xiayx <xiayouxue@hotmail.com>
-v1.0, 2019-08-23: SNAPSHOT
+v1.0, 2019-12-23: SNAPSHOT
 :doctype: docbook
 :toc: left
 :numbered:
-:imagesdir: docs/assets/images
+:imagesdir: docs/antora/modules/ROOT/assets/images
 :sourcedir: src/main/java
 :resourcesdir: src/main/resources
 :testsourcedir: src/test/java
 :source-highlighter: highlightjs
 
-查看 http://peacetrue.github.io/public/peacetrue-encryption/index.html[详情^]
+== 设计
+
+.编码解码器
+image::uml-encoderdecoder.png[]
+
+.加密解密服务
+image::uml-encryption.png[]
+
+== 实现
+
+.编码解码器
+image::encoderdecoder.png[]
+
+.加密解密服务
+image::encryption.png[]
+
+== 用法
+
+具体用法可参看单元测试

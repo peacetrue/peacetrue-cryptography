@@ -1,10 +1,10 @@
 package com.github.peacetrue.encryption;
 
-import com.github.peacetrue.encoder.HexEncoderDecoder;
+import com.github.peacetrue.encoderdecoder.HexEncoderDecoder;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.github.peacetrue.encoder.StringEncoderDecoder.UTF8;
+import static com.github.peacetrue.encoderdecoder.StringEncoderDecoder.UTF8;
 
 /**
  * @author xiayx

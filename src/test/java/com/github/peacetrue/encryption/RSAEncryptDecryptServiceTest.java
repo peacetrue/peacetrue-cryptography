@@ -1,7 +1,7 @@
 package com.github.peacetrue.encryption;
 
-import com.github.peacetrue.encoder.Base64EncoderDecoder;
-import com.github.peacetrue.encoder.StringEncoderDecoder;
+import com.github.peacetrue.encoderdecoder.Base64EncoderDecoder;
+import com.github.peacetrue.encoderdecoder.StringEncoderDecoder;
 import org.junit.Assert;
 import org.junit.Test;
 

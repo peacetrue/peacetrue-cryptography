@@ -1,4 +1,4 @@
-package com.github.peacetrue.encoder;
+package com.github.peacetrue.encoderdecoder;
 
 /**
  * 编码器和解码器

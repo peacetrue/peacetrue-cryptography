@@ -1,12 +1,11 @@
 package com.github.peacetrue.encryption;
 
-import com.github.peacetrue.encoder.Base64EncoderDecoder;
-import com.github.peacetrue.encoder.StringEncoderDecoder;
+import com.github.peacetrue.encoderdecoder.Base64EncoderDecoder;
+import com.github.peacetrue.encoderdecoder.StringEncoderDecoder;
 import lombok.Data;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 
 /**

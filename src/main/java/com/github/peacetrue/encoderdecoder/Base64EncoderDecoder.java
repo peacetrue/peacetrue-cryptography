@@ -1,4 +1,4 @@
-package com.github.peacetrue.encoder;
+package com.github.peacetrue.encoderdecoder;
 
 import java.util.Base64;
 
