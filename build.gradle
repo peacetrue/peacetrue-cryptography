@@ -9,9 +9,9 @@ plugins {
 
 allprojects { project ->
 
-    group "com.github.peacetrue.template"
-    version "1.0-SNAPSHOT"
-    description "gradle模板"
+    group "com.github.peacetrue"
+    version "1.0.0-SNAPSHOT"
+    description "加密和解密服务"
 
     apply plugin: "java"
     apply plugin: "java-library"
