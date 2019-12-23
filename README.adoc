@@ -47,4 +47,4 @@ image::encryption.png[]
 </dependency>
 ----
 
-具体用法可参看单元测试
+具体用法可参考单元测试
