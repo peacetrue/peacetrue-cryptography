@@ -28,4 +28,23 @@ image::encryption.png[]
 
 == 用法
 
+.配置快照仓库
+[source%nowrap,maven]
+----
+<repository>
+    <id>sonatype-snapshots</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+</repository>
+----
+
+.引用类库
+[source%nowrap,maven]
+----
+<dependency>
+  <groupId>com.github.peacetrue</groupId>
+  <artifactId>peacetrue-encryption</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+----
+
 具体用法可参看单元测试
