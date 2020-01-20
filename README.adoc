@@ -26,6 +26,10 @@ image::encoderdecoder.png[]
 .加密解密服务
 image::encryption.png[]
 
+== 流程
+
+image::flow.png[]
+
 == 用法
 
 .配置快照仓库
