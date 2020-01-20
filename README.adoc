@@ -32,6 +32,8 @@ image::flow.png[]
 
 == 用法
 
+
+////
 .配置快照仓库
 [source%nowrap,maven]
 ----
@@ -48,6 +50,27 @@ image::flow.png[]
   <groupId>com.github.peacetrue</groupId>
   <artifactId>peacetrue-encryption</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+</dependency>
+----
+////
+
+
+.配置Maven中央仓库
+[source%nowrap,maven]
+----
+<repository>
+    <id>mavenCentral</id>
+    <url>https://repo.maven.apache.org/maven2</url>
+</repository>
+----
+
+.引用类库
+[source%nowrap,maven]
+----
+<dependency>
+  <groupId>com.github.peacetrue</groupId>
+  <artifactId>peacetrue-encryption</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ----
 

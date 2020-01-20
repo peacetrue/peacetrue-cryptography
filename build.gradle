@@ -10,7 +10,7 @@ plugins {
 allprojects { project ->
 
     group "com.github.peacetrue"
-    version "1.0.0-SNAPSHOT"
+    version "1.0.0"
     description "加密和解密服务"
 
     apply plugin: "java"
