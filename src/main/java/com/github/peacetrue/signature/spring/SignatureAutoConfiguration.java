@@ -103,9 +103,9 @@ public class SignatureAutoConfiguration {
     public static class SignatureWebConfiguration extends WebMvcConfigurerAdapter {
 
         @Autowired
-        private SignatureHandlerInterceptor signatureHandlerInterceptor;
-        @Autowired
         private SignatureProperties properties;
+        @Autowired
+        private SignatureHandlerInterceptor signatureHandlerInterceptor;
 
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
