@@ -6,9 +6,11 @@ import com.github.peacetrue.security.KeyFactoryUtils;
 import com.github.peacetrue.signature.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -39,6 +41,7 @@ public class SignatureAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public BeanSigner beanSigner(Codec keyCodec) {
         Signer<byte[], byte[]> signer = properties.getSecretKey() == null
                 ? getStandardSigner(keyCodec)
@@ -64,18 +67,39 @@ public class SignatureAutoConfiguration {
     }
 
     @Bean
-    public SignatureHandlerInterceptor signatureHandlerInterceptor(BeanSigner beanSigner) {
-        return new SignatureHandlerInterceptor(beanSigner);
-    }
-
-    @Bean
     public SignatureClientHttpRequestInterceptor signatureClientHttpRequestInterceptor(BeanSigner beanSigner) {
         return new SignatureClientHttpRequestInterceptor(beanSigner);
     }
 
+    @Bean
+    public SignatureHandlerInterceptor signatureHandlerInterceptor(BeanSigner beanSigner) {
+        return new SignatureHandlerInterceptor(beanSigner);
+    }
+
     @Configuration
     @AutoConfigureAfter(SignatureAutoConfiguration.class)
-    @ConditionalOnProperty(name = "peacetrue.signature.interceptor-patterns")
+    @ConditionalOnClass(name = "org.springframework.boot.web.client.RestTemplateCustomizer")
+    @ConditionalOnProperty(name = "peacetrue.signature.sign-path-patterns")
+    public static class SignatureRestTemplateCustomizerConfiguration {
+
+        @Autowired
+        private SignatureProperties properties;
+        @Autowired
+        private SignatureClientHttpRequestInterceptor signatureClientHttpRequestInterceptor;
+
+        @Bean
+        public RestTemplateCustomizer restTemplateCustomizer() {
+            return restTemplate -> restTemplate.getInterceptors().add(
+                    new PathMatcherClientHttpRequestInterceptor(
+                            signatureClientHttpRequestInterceptor, properties.getSignPathPatterns()
+                    )
+            );
+        }
+    }
+
+    @Configuration
+    @AutoConfigureAfter(SignatureAutoConfiguration.class)
+    @ConditionalOnProperty(name = "peacetrue.signature.verify-path-patterns")
     public static class SignatureWebConfiguration extends WebMvcConfigurerAdapter {
 
         @Autowired
@@ -85,7 +109,7 @@ public class SignatureAutoConfiguration {
 
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
-            String[] patterns = properties.getInterceptorPatterns().toArray(new String[0]);
+            String[] patterns = properties.getVerifyPathPatterns().toArray(new String[0]);
             registry.addInterceptor(signatureHandlerInterceptor).addPathPatterns(patterns);
         }
     }

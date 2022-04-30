@@ -1,10 +1,10 @@
 group "com.github.peacetrue"
-version "1.0.0${tailSnapshot}"
-description "加密和解密服务"
+version "${peaceCryptographyVersion}${tailSnapshot}"
+description "密码学组件"
 
 dependencies {
     api "org.slf4j:slf4j-api"
-    api "com.github.peacetrue:peacetrue-beans:1.1.1-SNAPSHOT"
+    api "com.github.peacetrue:peacetrue-beans"
     implementation "com.github.peacetrue.spring:peacetrue-spring-beans"
     compileOnly "javax.servlet:javax.servlet-api"
     compileOnly "org.springframework:spring-webmvc"

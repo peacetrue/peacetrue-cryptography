@@ -32,6 +32,7 @@ class SignatureSpringTest {
 
     @ExtendWith(SpringExtension.class)
     @SpringBootTest(classes = {SignatureAutoConfiguration.class, SignatureTestConfiguration.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
+    @ActiveProfiles("correctPublicPrivateKey")
     static class CorrectPublicPrivateKey {
 
         @Autowired
@@ -60,5 +61,22 @@ class SignatureSpringTest {
             Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, output.getStatusCode());
         }
     }
+
+    @ExtendWith(SpringExtension.class)
+    @SpringBootTest(classes = {SignatureAutoConfiguration.class, SignatureTestConfiguration.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
+    @ActiveProfiles("secretKey")
+    static class CorrectSecretKey {
+
+        @Autowired
+        private TestRestTemplate restTemplate;
+
+        @Test
+        void echo() {
+            String input = RandomStringUtils.randomAlphanumeric(10);
+            String output = this.restTemplate.getForObject("/echo?input={0}", String.class, input);
+            Assertions.assertEquals(input, output);
+        }
+    }
+
 
 }

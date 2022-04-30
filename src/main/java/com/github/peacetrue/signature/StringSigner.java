@@ -1,7 +1,6 @@
 package com.github.peacetrue.signature;
 
 import com.github.peacetrue.codec.Codec;
-import com.github.peacetrue.lang.UncheckedException;
 
 import java.util.Objects;
 
@@ -17,7 +16,7 @@ public class StringSigner implements Signer<String, String> {
     private final Codec inner;
 
     /**
-     * 接收 UTF8 字符串，并输出 HEX 签名
+     * 接收 UTF8 字符串，并输出 HEX 签名。
      *
      * @param signer 字节数组签名者
      */
@@ -26,11 +25,11 @@ public class StringSigner implements Signer<String, String> {
     }
 
     /**
-     * 自定义一个字符串签名者
+     * 自定义一个字符串签名者。
      *
      * @param signer 字节数组签名者
-     * @param outer  消息解码器
-     * @param inner  摘要编码器
+     * @param outer  外层编解码器
+     * @param inner  内层编解码器
      */
     public StringSigner(Signer<byte[], byte[]> signer, Codec outer, Codec inner) {
         this.signer = Objects.requireNonNull(signer);
@@ -44,7 +43,7 @@ public class StringSigner implements Signer<String, String> {
     }
 
     @Override
-    public boolean verify(String toBeSigned, String signed) throws UncheckedException {
+    public boolean verify(String toBeSigned, String signed) {
         return signer.verify(outer.decode(toBeSigned), inner.decode(signed));
     }
 }

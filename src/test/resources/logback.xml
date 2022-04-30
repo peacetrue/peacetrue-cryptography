@@ -34,10 +34,10 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
+<!--
     <logger name="com.github.peacetrue.practice.MD5" additivity="false">
         <appender-ref ref="CUSTOM_FILE"/>
     </logger>
-<!--
     <logger name="com.github.peacetrue.crypto" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>

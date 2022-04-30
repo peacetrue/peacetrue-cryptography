@@ -37,7 +37,7 @@ public class SignatureClientHttpRequestInterceptor implements ClientHttpRequestI
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] bytes, ClientHttpRequestExecution execution) throws IOException {
         URI uri = rebuildURI(request.getURI());
-        log.trace("signed request uri: {}", uri);
+        log.debug("signed request uri: {}", uri);
         return execution.execute(new HttpRequestWrapper(request) {
             @Override
             public URI getURI() {
