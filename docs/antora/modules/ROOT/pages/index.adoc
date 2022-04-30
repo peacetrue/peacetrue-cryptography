@@ -82,7 +82,7 @@ image::image-2022-04-30-13-27-12-978.png[]
 已测试实现包括：SHA256WithRSA、HmacSHA256。
 
 * StandardSigner 是标准签名实现
-* DigestSigner 是基于摘要的扩展消息实现，主要使用 HMAC。
+* DigestSigner 是基于摘要的扩展实现，主要使用 HMAC。
 
 === Spring 环境支持
 
