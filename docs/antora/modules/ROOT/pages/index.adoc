@@ -58,7 +58,7 @@ image::image-2022-04-30-13-04-02-534.png[]
 
 已测试实现包括：MD5、SHA256、SHA512 和 HmacSHA256。
 
-== 加解密（Encryption/Decryption）
+== 加解密（Encryption）
 
 加解密器可加密和解密消息，消息分为明文和密文。
 
@@ -68,8 +68,7 @@ image::image-2022-04-30-13-09-40-359.png[]
 已测试实现包括：AES/ECB/PKCS5Padding、AES/CBC/PKCS5Padding、RSA/ECB/PKCS1Padding。
 
 NOTE: 在 Padding 方面，PKCS5 和 PKCS7 在规范上有区别，但 Java 实现上是等效的，即使用 PKCS5 实现了 PKCS7。
-
-NOTE: 在 IV 方面，CBC 模式支持静态 IV 和动态 IV，动态 IV 会将生成的 IV 追加在密钥的末尾。
+在 IV 方面，CBC 模式支持静态 IV 和动态 IV，动态 IV 会将生成的 IV 追加在密钥的末尾。
 
 == 签名（Signature）
 

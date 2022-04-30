@@ -1,4 +1,4 @@
-name: peacetrue-encryption
+name: peacetrue-cryptography
 title: 密码学组件
 version: master
 start_page: ROOT:index.adoc
