@@ -1,5 +1,5 @@
 name: peacetrue-encryption
-title: 加密组件
+title: 密码学组件
 version: master
 start_page: ROOT:index.adoc
 nav:
