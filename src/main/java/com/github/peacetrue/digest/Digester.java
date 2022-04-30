@@ -22,8 +22,6 @@ public interface Digester<T> {
      * @param digest  摘要
      * @return true 如果匹配
      */
-    default boolean match(T message, T digest) {
-        return message.equals(digest);
-    }
+    boolean match(T message, T digest);
 
 }

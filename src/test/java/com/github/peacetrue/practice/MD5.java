@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
- * MD5 实现
+ * MD5 实现。
  *
  * @author peace
  * @see <a href="https://zh.wikipedia.org/wiki/MD5">wiki</a>

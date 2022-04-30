@@ -24,8 +24,7 @@ import java.util.List;
         HttpMessageConvertersAutoConfiguration.class,
         DispatcherServletAutoConfiguration.class,
         WebMvcAutoConfiguration.class,
-        ServletWebServerFactoryAutoConfiguration.class,
-        SignatureRestTemplateCustomizerConfiguration.class
+        ServletWebServerFactoryAutoConfiguration.class
 })
 class SignatureTestConfiguration {
 

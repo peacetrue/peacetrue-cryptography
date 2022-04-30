@@ -21,10 +21,11 @@ public class AESEncryptor implements ByteEncryptor {
 
     public static final String TRANSFORMATION_ECB = "AES/ECB/PKCS5Padding";
     public static final String TRANSFORMATION_CBC = "AES/CBC/PKCS5Padding";
+    private static final int IV_LENGTH = 16;
     private static final IVGenerator IV_GENERATOR = new IVGenerator() {
         @Override
         public byte[] generateIV() {
-            return randomIV(16);
+            return randomIV(IV_LENGTH);
         }
 
         @Override
@@ -34,8 +35,8 @@ public class AESEncryptor implements ByteEncryptor {
     };
 
     private static final IVExtractor IV_EXTRACTOR = ciphertextIV -> new CiphertextIV(
-            extractCiphertext(ciphertextIV, 16),
-            extractIV(ciphertextIV, 16)
+            extractCiphertext(ciphertextIV, IV_LENGTH),
+            extractIV(ciphertextIV, IV_LENGTH)
     );
 
 
@@ -46,7 +47,7 @@ public class AESEncryptor implements ByteEncryptor {
     private IVExtractor ivExtractor;
 
     /**
-     * 不需要 IV 时使用，例如： EBC 模式
+     * 不需要 IV 时使用，例如：EBC 模式
      *
      * @param transformation 传输信息
      * @param secretKey      密钥
@@ -57,8 +58,8 @@ public class AESEncryptor implements ByteEncryptor {
     }
 
     /**
-     * 使用固定 IV，可在 CBC 模式下使用。
-     * 加密和解密都使用该 IV。
+     * 使用静态 IV，可在 CBC 模式下使用。
+     * 加解密都使用该 IV。
      *
      * @param transformation  传输信息
      * @param secretKey       密钥
@@ -71,8 +72,8 @@ public class AESEncryptor implements ByteEncryptor {
 
     /**
      * 使用动态 IV，可在 CBC 模式下使用。
-     * 使用动态 IV，在加密时需要将 IV 合并到密文中；
-     * 解密时，从密文中找出动态 IV 后，然后使用该动态 IV 解密
+     * 加密时，将 IV 合并到密文中；
+     * 解密时，从密文中找出动态 IV 后，使用该动态 IV 解密
      *
      * @param transformation 传输信息
      * @param secretKey      密钥
@@ -85,20 +86,37 @@ public class AESEncryptor implements ByteEncryptor {
         this.ivExtractor = ivExtractor;
     }
 
-
+    /**
+     * 构建 ECB 模式 AES 加解密器。
+     *
+     * @param secretKey 密钥
+     * @return AES 加解密器。
+     */
     public static AESEncryptor buildECB(SecretKey secretKey) {
         return new AESEncryptor(TRANSFORMATION_ECB, secretKey);
     }
 
+    /**
+     * 构建 CBC 模式静态 AES 加解密器。
+     *
+     * @param secretKey 密钥
+     * @param iv        固定初始向量
+     * @return AES 加解密器。
+     */
     @SuppressWarnings("java:S3329")
     public static AESEncryptor buildCBC(SecretKey secretKey, byte[] iv) {
         return new AESEncryptor(TRANSFORMATION_CBC, secretKey, new IvParameterSpec(iv, 0, 16));
     }
 
+    /**
+     * 构建 CBC 模式动态 AES 加解密器，每次加密随机生成初始向量。
+     *
+     * @param secretKey 密钥
+     * @return AES 加解密器。
+     */
     public static AESEncryptor buildCBC(SecretKey secretKey) {
         return new AESEncryptor(TRANSFORMATION_CBC, secretKey, IV_GENERATOR, IV_EXTRACTOR);
     }
-
 
     @Override
     public byte[] encrypt(byte[] plaintext) {
@@ -124,16 +142,16 @@ public class AESEncryptor implements ByteEncryptor {
         return ByteBuffer.allocate(ciphertext.length + iv.length).put(ciphertext).put(iv).array();
     }
 
-    private static byte[] extractIV(byte[] ciphertext, int ivLength) {
+    private static byte[] extractIV(byte[] ciphertextIV, int ivLength) {
         byte[] iv = new byte[ivLength];
-        System.arraycopy(ciphertext, ciphertext.length - iv.length, iv, 0, iv.length);
+        System.arraycopy(ciphertextIV, ciphertextIV.length - iv.length, iv, 0, iv.length);
         return iv;
     }
 
-    private static byte[] extractCiphertext(byte[] ciphertext, int ivLength) {
-        byte[] actualCiphertext = new byte[ciphertext.length - ivLength];
-        System.arraycopy(ciphertext, 0, actualCiphertext, 0, actualCiphertext.length);
-        return actualCiphertext;
+    private static byte[] extractCiphertext(byte[] ciphertextIV, int ivLength) {
+        byte[] ciphertext = new byte[ciphertextIV.length - ivLength];
+        System.arraycopy(ciphertextIV, 0, ciphertext, 0, ciphertext.length);
+        return ciphertext;
     }
 
     @SuppressWarnings("java:S3329")
@@ -151,14 +169,14 @@ public class AESEncryptor implements ByteEncryptor {
         return ByteEncryptor.decrypt(transformation, key, new IvParameterSpec(ciphertextIV.getIv()), ciphertextIV.getCiphertext());
     }
 
-    private interface IVExtractor {
-        CiphertextIV extractCiphertextIV(byte[] ciphertextIV);
-    }
-
     private interface IVGenerator {
         byte[] generateIV();
 
         byte[] mergeCiphertextIV(byte[] ciphertext, byte[] iv);
+    }
+
+    private interface IVExtractor {
+        CiphertextIV extractCiphertextIV(byte[] ciphertextIV);
     }
 
     @Data

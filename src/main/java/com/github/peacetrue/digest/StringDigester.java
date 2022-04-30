@@ -48,6 +48,6 @@ public class StringDigester implements Digester<String> {
 
     @Override
     public boolean match(String message, String digest) {
-        return digest(message).equalsIgnoreCase(digest);
+        return digest(message).equals(digest);
     }
 }
