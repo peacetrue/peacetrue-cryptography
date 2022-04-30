@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author peace
  */
-class StringCodecTest {
+class CharsetCodecTest {
 
     @Test
     void codec() {

@@ -24,7 +24,7 @@ public class SignatureProperties {
     private String secretKey;
     /** 签名路径规则，生成签名时，拦截请求的路径规则，不配置此项不开启签名生成，拦截所有可配置为：/** */
     private List<String> signPathPatterns;
-    /** 验签路径规则，验证签名时，拦截请求的路径规则，不配置此项不开启签名拦截，拦截所有可配置为：/** */
+    /** 验签路径规则，验证签名时，拦截请求的路径规则，不配置此项不开启签名验证，拦截所有可配置为：/** */
     private List<String> verifyPathPatterns;
 
 }
