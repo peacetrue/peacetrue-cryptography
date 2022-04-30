@@ -1,17 +1,121 @@
 = 简介
 
-peacetrue-encryption 是一个基于 gradle 的 xref:github-template.adoc[github 模板项目]。
+peacetrue-cryptography 是一个密码学组件，涉及编解码、加解密、消息摘要和签名等内容，可满足日常场景的使用。
 
-包含以下内容：
+== 参考
 
-* 基于 jdk8+
-* 使用 gradle-5.6.2
-* build.gradle中包含以下内容：
-** idea 插件，支持在 Intellij IDEA 中开发
-** maven-publish 插件，发布类库到 maven 中央仓库
-** 依赖版本管理
-*** spring-boot-dependencies:1.5.20.RELEASE
-*** peacetrue-dependencies:1.0.4-SNAPSHOT
-* 文档目录 /docs 包含以下内容：
-** ``README.graffle``设计图表
-** 一个符合 https://antora.org[antora^] 要求的文档结构
+* https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html[JDK 8 密码规范^]
+* https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html[JDK 8 密码算法^]
+* https://zh.wikipedia.org/wiki/%E5%AF%86%E7%A0%81%E5%AD%A6[WIKI 密码学^]
+
+== 特性说明
+
+* 统一编解码接口
+* 统一消息摘要接口
+* 统一加解密接口
+* 统一签名和验签接口
+* Spring 环境自动签名和验签
+
+== 运行环境
+
+* JDK 1.8 及以上
+
+== 类库说明
+
+[source%nowrap,maven]
+----
+<dependency>
+  <groupId>com.github.peacetrue</groupId>
+  <artifactId>peacetrue-cryptography</artifactId>
+  <version>1.0.0</version>
+</dependency>
+----
+
+== 编解码（Codec）
+
+编解码器在二进制数组和人类可读的字符串之间转换，用于避免传输中乱码。
+
+.Codec
+image::image-2022-04-30-12-58-13-186.png[]
+
+已测试实现包括：UTF-8、Hex 和 Base64。
+
+== 认证码（MAC）
+
+因为认证码目前主要实现是哈希认证码，所以没有单独抽象该接口，直接将 HMAC 实现到了消息摘要者中。 如果认证码还有非哈希的实现方式，则考虑重新规划认证码接口。
+
+== 消息摘要（MessageDigest）
+
+消息摘要者可获取消息的摘要，用于消息验证。输入称为消息，输出称为摘要。
+
+.Digester
+image::image-2022-04-30-13-04-02-534.png[]
+
+已测试实现包括：MD5、SHA-256、SHA-512 和 HmacSHA256。
+
+== 加解密（Encryption/Decryption）
+
+加解密器可加密和解密消息，消息分为明文和密文。
+
+.Encryptor
+image::image-2022-04-30-13-09-40-359.png[]
+
+已测试实现包括：AES/ECB/PKCS5Padding、AES/CBC/PKCS5Padding、RSA/ECB/PKCS1Padding。
+
+NOTE: 在 Padding 方面，PKCS5 和 PKCS7 在规范上有区别，但 Java 实现上是等效的，即使用 PKCS5 实现了 PKCS7。
+
+NOTE: 在 IV 方面，CBC 模式支持固定 IV 和动态 IV，动态 IV 会将生成的 IV 追加在密钥的末尾。
+
+== 签名（Signature）
+
+签名者可签名消息，用于消息验证。签名在消息摘要的基础上，使用公私加密散列值：
+
+image::image-2022-04-30-13-23-37-179.png[]
+
+.Signer
+image::image-2022-04-30-13-27-12-978.png[]
+
+已测试实现包括：SHA256WithRSA、HmacSHA256。
+
+* StandardSigner 是标准签名实现
+* DigestSigner 是基于摘要的扩展消息实现，主要使用 HMAC。
+
+== 总结
+
+编解码器可在字符串和二进制数组之间转换，其他全部在二进制数组之间转换。
+
+以加解密流程为例说明：
+
+.加密一个字符串
+[plantuml,target=encryption,format=png]
+....
+@startuml
+start
+:接收到明文字符串;
+:编解码器解码字符串为二进制数组;
+note: 此处编解码器称为外层编解码器（outer）
+:加密后得到密文二进制数组;
+:编解码器编码二进制数组为字符串;
+note: 此处编解码器称为内层编解码器（inner）
+stop
+@enduml
+....
+
+.解密一个字符串
+[plantuml,target=decryption,format=png]
+....
+@startuml
+start
+:接收到密文字符串;
+:编解码器解码字符串为二进制数组;
+note: 此处编解码器称为内层编解码器（inner）
+:解密后得到明文二进制数组;
+:编解码器编码二进制数组为字符串;
+note: 此处编解码器称为外层编解码器（outer）
+stop
+@enduml
+....
+
+
+
+

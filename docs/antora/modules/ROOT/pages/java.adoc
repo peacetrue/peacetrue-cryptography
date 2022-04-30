@@ -1,0 +1,40 @@
+= JCE
+
+== 参考
+
+* https://blog.csdn.net/fanxiaobin577328725/article/details/51713624[Java 之 JCE]
+* https://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html[JCA]
+* https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html[算法名称]
+* https://www.cnblogs.com/starwolf/p/3365834.html[AES五种加密模式（CBC、ECB、CTR、OCF、CFB）^]
+
+== 术语
+
+* Hash function：散列算法、哈希函数
+* Cryptographic hash function：密码散列函数
+* message：消息
+* digest：摘要
+* Message authentication code（MAC）：消息认证码
+* Hash-based Message authentication code（HMAC）：密钥散列消息认证码
+* Cipher：密码
+* Transformation：变化、弯形、变质、转变
+* Crypto：秘密赞同者；秘密党员
+* Cryptography：密码使用法，密码系统；密码术
+* JCA（Java Cryptography Architecture）：Java 密码系统架构
+* JCE（Java Cryptography Extension）：Java 密码系统扩展
+* MD5（Message Digest Algorithm）：消息摘要算法
+* SHA1（Secure Hash Algorithm）：安全哈希算法
+* PKCS（Public Key Cryptography Standards）：公钥加密标准
+* 加密模式
+** ECB（Electronic Codebook Book）：电码本模式
+** CBC（Cipher Block Chaining）：密码分组链接模式
+* 数据填充方式
+** PKCS5Padding5：块字节固定为 8
+** PKCS5Padding7：块字节可通过参数控制，在 Java 的实现中 PKCS5Padding5 和 PKCS5Padding7 等效
+* IV（Initialization Vector）：初始化向量
+
+== 哈希函数
+
+* 确定性，输入值不变，输出值不变
+* 不可逆，无法通过输出的值逆向推测出输入值
+* 压缩性，任意长度的输入总是输出一个较小长度的值
+* 分散性，输入值的细微变化也会导致输出值的完全不同

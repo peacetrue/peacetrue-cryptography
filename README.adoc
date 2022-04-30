@@ -1,18 +1,15 @@
-= 加密解密组件
-xiayx <xiayouxue@hotmail.com>
-v1.0, 2019-12-23: SNAPSHOT
+= 密码学组件
+peace <xiayouxue@hotmail.com>
+v1.0, 2022-05-01: SNAPSHOT
 :doctype: docbook
-:toc: left
+:toc:
 :numbered:
 :imagesdir: docs/antora/modules/ROOT/assets/images
-:sourcedir: src/main/java
-:resourcesdir: src/main/resources
-:testsourcedir: src/test/java
 :source-highlighter: highlightjs
 
 == 设计
 
-.编码解码器
+.编解码器
 image::uml-encoderdecoder.png[]
 
 .加密解密服务
@@ -20,7 +17,7 @@ image::uml-encryption.png[]
 
 == 实现
 
-.编码解码器
+.编解码器
 image::encoderdecoder.png[]
 
 .加密解密服务
@@ -35,7 +32,7 @@ image::flow.png[]
 
 ////
 .配置快照仓库
-[source%nowrap,maven]
+[source,maven]
 ----
 <repository>
     <id>sonatype-snapshots</id>
@@ -44,7 +41,7 @@ image::flow.png[]
 ----
 
 .引用类库
-[source%nowrap,maven]
+[source,maven]
 ----
 <dependency>
   <groupId>com.github.peacetrue</groupId>
@@ -56,7 +53,7 @@ image::flow.png[]
 
 
 .配置Maven中央仓库
-[source%nowrap,maven]
+[source,maven]
 ----
 <repository>
     <id>mavenCentral</id>
@@ -65,7 +62,7 @@ image::flow.png[]
 ----
 
 .引用类库
-[source%nowrap,maven]
+[source,maven]
 ----
 <dependency>
   <groupId>com.github.peacetrue</groupId>
