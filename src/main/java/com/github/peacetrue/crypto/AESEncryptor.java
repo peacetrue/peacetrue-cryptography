@@ -2,6 +2,8 @@ package com.github.peacetrue.crypto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.Nullable;
 import javax.crypto.SecretKey;
@@ -179,7 +181,7 @@ public class AESEncryptor implements ByteEncryptor {
         CiphertextIV extractCiphertextIV(byte[] ciphertextIV);
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     private static class CiphertextIV {
         private byte[] ciphertext;

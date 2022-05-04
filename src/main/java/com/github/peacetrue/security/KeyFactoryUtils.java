@@ -14,13 +14,19 @@ import java.security.spec.X509EncodedKeySpec;
  * {@link KeyFactory} 工具类
  *
  * @author peace
- * @see java.security.KeyFactory
+ * @see KeyFactory
  **/
 public abstract class KeyFactoryUtils {
 
-    protected KeyFactoryUtils() {
+    /** 抽象工具类，防止实例化 */
+    private KeyFactoryUtils() {
     }
 
+    /**
+     * 获取 RSA 钥匙工厂。
+     *
+     * @return RSA 实例
+     */
     public static KeyFactory getRsaInstance() {
         try {
             return KeyFactory.getInstance("RSA");
@@ -30,28 +36,28 @@ public abstract class KeyFactoryUtils {
     }
 
     /**
-     * 构建 rsa 私钥
+     * 构建 RSA 私钥。
      *
-     * @param bytes 二进制私钥
-     * @return rsa 私钥
+     * @param encodedKey 二进制私钥
+     * @return RSA 私钥
      */
-    public static PrivateKey generateRsaPrivate(byte[] bytes) {
+    public static PrivateKey generateRsaPrivate(byte[] encodedKey) {
         try {
-            return getRsaInstance().generatePrivate(new PKCS8EncodedKeySpec(bytes));
+            return getRsaInstance().generatePrivate(new PKCS8EncodedKeySpec(encodedKey));
         } catch (InvalidKeySpecException e) {
             throw new UncheckedException(e);
         }
     }
 
     /**
-     * 构建 rsa 公钥
+     * 构建 RSA 公钥。
      *
-     * @param bytes 二进制公钥
-     * @return rsa 公钥
+     * @param encodeKey 二进制公钥
+     * @return RSA 公钥
      */
-    public static PublicKey generateRsaPublic(byte[] bytes) {
+    public static PublicKey generateRsaPublic(byte[] encodeKey) {
         try {
-            return getRsaInstance().generatePublic(new X509EncodedKeySpec(bytes));
+            return getRsaInstance().generatePublic(new X509EncodedKeySpec(encodeKey));
         } catch (InvalidKeySpecException e) {
             throw new UncheckedException(e);
         }

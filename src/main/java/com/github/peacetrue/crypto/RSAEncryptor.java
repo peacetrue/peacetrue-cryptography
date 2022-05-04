@@ -19,14 +19,6 @@ public class RSAEncryptor implements ByteEncryptor {
     private final PublicKey publicKey;
     private final PrivateKey privateKey;
 
-    public RSAEncryptor(String transformation, PublicKey publicKey) {
-        this(transformation, Objects.requireNonNull(publicKey), null);
-    }
-
-    public RSAEncryptor(String transformation, PrivateKey privateKey) {
-        this(transformation, null, Objects.requireNonNull(privateKey));
-    }
-
     public RSAEncryptor(String transformation, @Nullable PublicKey publicKey, @Nullable PrivateKey privateKey) {
         this.transformation = Objects.requireNonNull(transformation);
         if (publicKey == null && privateKey == null) {

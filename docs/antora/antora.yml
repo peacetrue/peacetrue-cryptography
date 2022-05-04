@@ -2,5 +2,9 @@ name: peacetrue-cryptography
 title: 密码学组件
 version: master
 start_page: ROOT:index.adoc
+asciidoc:
+  attributes:
+    numbered: '@'
+    project-name: 'peacetrue-cryptography'
 nav:
   - modules/ROOT/nav.adoc

@@ -1,28 +1,30 @@
 package com.github.peacetrue.security;
 
-import com.github.peacetrue.codec.Codec;
 import com.github.peacetrue.lang.UncheckedException;
-import lombok.extern.slf4j.Slf4j;
 
-import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * {@link KeyPairGenerator} 工具类
+ * {@link KeyPairGenerator} 工具类。
  *
  * @author peace
  **/
-@Slf4j
 public abstract class KeyPairGeneratorUtils {
 
     public static final int KEY_LENGTH_1024 = 1024;
     public static final int KEY_LENGTH_2048 = 2048;
 
-    protected KeyPairGeneratorUtils() {
+    /** 抽象工具类，防止实例化 */
+    private KeyPairGeneratorUtils() {
     }
 
+    /**
+     * 获取 RSA 公私钥对生成器。
+     *
+     * @return RSA 公私钥对生成器
+     */
     public static KeyPairGenerator getRsaKeyPairGenerator() {
         try {
             return KeyPairGenerator.getInstance("RSA");
@@ -31,20 +33,16 @@ public abstract class KeyPairGeneratorUtils {
         }
     }
 
+    /**
+     * 生成 RSA 公私钥对。
+     *
+     * @param keyLength 钥匙长度
+     * @return RSA 公私钥对
+     */
     public static KeyPair generateRsaKeyPair(int keyLength) {
         KeyPairGenerator keyPairGenerator = getRsaKeyPairGenerator();
         keyPairGenerator.initialize(keyLength);
         return keyPairGenerator.generateKeyPair();
-    }
-
-    public static void printRsaKeyPair(int keyLength, Codec codec) {
-        KeyPair keyPair = generateRsaKeyPair(keyLength);
-        log.info("PublicKey: {}", toString(keyPair.getPublic(), codec));
-        log.info("PrivateKey: {}", toString(keyPair.getPrivate(), codec));
-    }
-
-    public static String toString(Key key, Codec codec) {
-        return codec.encode(key.getEncoded());
     }
 
 }

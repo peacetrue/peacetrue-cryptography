@@ -4,6 +4,7 @@ description "密码学组件"
 
 dependencies {
     api "org.slf4j:slf4j-api"
+    api "com.github.peacetrue:peacetrue-common"
     api "com.github.peacetrue:peacetrue-beans"
     implementation "com.github.peacetrue.spring:peacetrue-spring-beans"
     compileOnly "javax.servlet:javax.servlet-api"

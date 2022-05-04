@@ -6,3 +6,7 @@
 
 实现基本常用功能。
 
+== 1.0.1
+
+* 添加 *peacetrue-common* 依赖
+* 添加 Github Workflows
