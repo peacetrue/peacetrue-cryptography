@@ -7,6 +7,7 @@ dependencies {
     api "com.github.peacetrue:peacetrue-common"
     api "com.github.peacetrue:peacetrue-beans"
     implementation "com.github.peacetrue.spring:peacetrue-spring-beans"
+    compileOnly "javax.xml.bind:jaxb-api"
     compileOnly "javax.servlet:javax.servlet-api"
     compileOnly "org.springframework:spring-webmvc"
     compileOnly "org.springframework.boot:spring-boot-autoconfigure"
@@ -14,6 +15,8 @@ dependencies {
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "org.springframework.boot:spring-boot-starter-web"
+    // jdk 11 及以上需要
+    testImplementation "javax.xml.bind:jaxb-api"
 }
 
 
