@@ -20,8 +20,8 @@ public interface Digester<T> {
      *
      * @param message 消息
      * @param digest  摘要
-     * @return true 如果匹配
+     * @return true 如果消息和摘要匹配
      */
-    boolean match(T message, T digest);
+    boolean verify(T message, T digest);
 
 }

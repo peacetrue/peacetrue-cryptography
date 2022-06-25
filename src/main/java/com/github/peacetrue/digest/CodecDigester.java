@@ -9,11 +9,11 @@ import java.util.Objects;
  *
  * @author peace
  **/
-public class StringDigester implements Digester<String> {
+public class CodecDigester implements Digester<String> {
 
-    public static final StringDigester MD5 = new StringDigester(HashDigester.MD5);
-    public static final StringDigester SHA256 = new StringDigester(HashDigester.SHA256);
-    public static final StringDigester SHA512 = new StringDigester(HashDigester.SHA512);
+    public static final CodecDigester MD5 = new CodecDigester(ByteDigester.MD5);
+    public static final CodecDigester SHA256 = new CodecDigester(ByteDigester.SHA256);
+    public static final CodecDigester SHA512 = new CodecDigester(ByteDigester.SHA512);
 
     private final Digester<byte[]> digester;
     private final Codec outer;
@@ -24,7 +24,7 @@ public class StringDigester implements Digester<String> {
      *
      * @param digester 字节数组摘要者
      */
-    public StringDigester(Digester<byte[]> digester) {
+    public CodecDigester(Digester<byte[]> digester) {
         this(digester, Codec.CHARSET_UTF8, Codec.HEX);
     }
 
@@ -35,7 +35,7 @@ public class StringDigester implements Digester<String> {
      * @param outer    消息解码器
      * @param inner    摘要编码器
      */
-    public StringDigester(Digester<byte[]> digester, Codec outer, Codec inner) {
+    public CodecDigester(Digester<byte[]> digester, Codec outer, Codec inner) {
         this.digester = Objects.requireNonNull(digester);
         this.outer = Objects.requireNonNull(outer);
         this.inner = Objects.requireNonNull(inner);
@@ -47,7 +47,8 @@ public class StringDigester implements Digester<String> {
     }
 
     @Override
-    public boolean match(String message, String digest) {
+    public boolean verify(String message, String digest) {
         return digest(message).equals(digest);
     }
+
 }

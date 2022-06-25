@@ -6,12 +6,12 @@ import com.github.peacetrue.digest.HmacDigester;
 import java.util.Objects;
 
 /**
- * 摘要签名者，配合 {@link HmacDigester} 使用。
+ * 摘要签名者，可配合 {@link HmacDigester} 使用。
  *
  * @author peace
  * @see HmacDigester
  **/
-public class DigestSigner implements Signer<byte[], byte[]> {
+public class DigestSigner implements BytesSigner {
 
     private final Digester<byte[]> digester;
 
@@ -26,7 +26,7 @@ public class DigestSigner implements Signer<byte[], byte[]> {
 
     @Override
     public boolean verify(byte[] toBeSigned, byte[] signed) {
-        return digester.match(toBeSigned, signed);
+        return digester.verify(toBeSigned, signed);
     }
 
 }

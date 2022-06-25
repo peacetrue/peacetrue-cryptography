@@ -26,8 +26,12 @@ public abstract class KeyPairGeneratorUtils {
      * @return RSA 公私钥对生成器
      */
     public static KeyPairGenerator getRsaKeyPairGenerator() {
+        return getKeyPairGenerator("RSA");
+    }
+
+    static KeyPairGenerator getKeyPairGenerator(String algorithm) {
         try {
-            return KeyPairGenerator.getInstance("RSA");
+            return KeyPairGenerator.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
             throw new UncheckedException(e);
         }

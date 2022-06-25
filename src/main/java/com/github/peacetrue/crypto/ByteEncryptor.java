@@ -50,7 +50,6 @@ public interface ByteEncryptor extends Encryptor<byte[]> {
      * @param ciphertext      密文
      * @return 明文
      */
-
     static byte[] decrypt(String transformation, Key key, @Nullable IvParameterSpec ivParameterSpec, byte[] ciphertext) {
         try {
             Cipher cipher = Cipher.getInstance(transformation);

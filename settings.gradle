@@ -1,1 +1,18 @@
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "com.github.peacetrue.gradle") {
+                useModule("${requested.id.namespace}:peacetrue-gradle-plugin:${requested.version}")
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+    }
+}
+
 rootProject.name = "peacetrue-cryptography"

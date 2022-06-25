@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author peace
  **/
-public class HmacDigester implements HashDigester {
+public class HmacDigester implements ByteDigester {
 
     private final String algorithm;
     private final SecretKey secretKey;

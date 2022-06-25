@@ -6,7 +6,9 @@
 
 实现基本常用功能。
 
-== 1.0.1
+== 2.0.0
 
 * 添加 *peacetrue-common* 依赖
-* 添加 Github Workflows
+* 调整部分类名和类所在的包路径
+* 添加 GitHub Workflows
+* 移除 Spring 相关的签名实现到 `com.github.peacetrue.spring:peacetrue-spring-signature`

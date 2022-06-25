@@ -28,8 +28,12 @@ public abstract class KeyFactoryUtils {
      * @return RSA 实例
      */
     public static KeyFactory getRsaInstance() {
+        return getKeyFactory("RSA");
+    }
+
+    static KeyFactory getKeyFactory(String algorithm) {
         try {
-            return KeyFactory.getInstance("RSA");
+            return KeyFactory.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
             throw new UncheckedException(e);
         }

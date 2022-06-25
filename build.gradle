@@ -1,27 +1,15 @@
+plugins {
+    id "com.github.peacetrue.gradle.build-convention" version "${peaceGradleVersion}${tailSnapshot}"
+}
+
 group "com.github.peacetrue"
 version "${peaceCryptographyVersion}${tailSnapshot}"
 description "密码学组件"
 
 dependencies {
-    api "org.slf4j:slf4j-api"
-    api "com.github.peacetrue:peacetrue-common"
-    api "com.github.peacetrue:peacetrue-beans"
-    implementation "com.github.peacetrue.spring:peacetrue-spring-beans"
+    implementation "com.github.peacetrue:peacetrue-common"
     compileOnly "javax.xml.bind:jaxb-api"
-    compileOnly "javax.servlet:javax.servlet-api"
-    compileOnly "org.springframework:spring-webmvc"
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
-    compileOnly "org.springframework.boot:spring-boot-autoconfigure-processor"
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.springframework.boot:spring-boot-starter-web"
-    // jdk 11 及以上需要
-    testImplementation "javax.xml.bind:jaxb-api"
+    testImplementation "javax.xml.bind:jaxb-api"    // jdk 11 及以上需要
 }
-
-
-
-
-
-
 

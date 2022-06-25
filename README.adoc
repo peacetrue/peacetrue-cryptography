@@ -6,12 +6,13 @@ v1.0, 2022-05-01: SNAPSHOT
 :numbered:
 :imagesdir: docs/antora/modules/ROOT/assets/images
 :source-highlighter: highlightjs
-:project-name: peacetrue-cryptography
+:app-name: peacetrue-cryptography
+:foresight-repoId: e0395f43-dda1-44ad-a184-ffd73594922f
 
-//image:https://img.shields.io/lgtm/grade/java/github/peacetrue/{project-name}["LGTM Grade",link="https://lgtm.com/projects/g/peacetrue/{project-name}"]
-image:https://snyk.io/test/github/peacetrue/{project-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
-image:https://img.shields.io/github/workflow/status/peacetrue/{project-name}/build/master["GitHub Workflow Status",link="https://github.com/peacetrue/{project-name}/actions"]
-image:https://foresight.service.thundra.io/public/api/v1/badge/success?repoId=e0395f43-dda1-44ad-a184-ffd73594922f["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{project-name}/test-runs"]
-image:https://img.shields.io/codecov/c/github/peacetrue/{project-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{project-name}"]
+//image:https://img.shields.io/lgtm/grade/java/github/peacetrue/{app-name}["LGTM Grade",link="https://lgtm.com/projects/g/peacetrue/{app-name}"]
+image:https://snyk.io/test/github/peacetrue/{app-name}/badge.svg["Snyk",link="https://app.snyk.io/org/peacetrue"]
+image:https://img.shields.io/github/workflow/status/peacetrue/{app-name}/build/master["GitHub Workflow Status",link="https://github.com/peacetrue/{app-name}/actions"]
+image:https://foresight.service.thundra.io/public/api/v1/badge/success?repoId={foresight-repoId}["Foresight",link="https://foresight.thundra.io/repositories/github/peacetrue/{app-name}/test-runs"]
+image:https://img.shields.io/codecov/c/github/peacetrue/{app-name}/master["Codecov",link="https://app.codecov.io/gh/peacetrue/{app-name}"]
 
 详情参考 https://peacetrue.cn/summarize/peacetrue-cryptography/index.html[安宁的博客^]。

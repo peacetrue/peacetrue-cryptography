@@ -7,25 +7,25 @@ import java.security.*;
 import java.util.Objects;
 
 /**
- * 标准签名者，符合 JDK 签名算法规范。
+ * 非对称加密签名者，符合 JDK 签名算法规范。
  *
  * @author peace
  * @see DigestSigner
  **/
-public class StandardSigner implements Signer<byte[], byte[]> {
+public class AsymmetricSigner implements BytesSigner {
 
     /** 签名算法 */
     private final String algorithm;
-    /** 公钥，用于验证签名 */
-    private final PublicKey publicKey;
     /** 私钥，用于生成签名 */
     private final PrivateKey privateKey;
+    /** 公钥，用于验证签名 */
+    private final PublicKey publicKey;
 
-    public StandardSigner(@Nullable PublicKey publicKey, @Nullable PrivateKey privateKey) {
-        this("SHA256WithRSA", publicKey, privateKey);
+    public AsymmetricSigner(@Nullable PrivateKey privateKey, @Nullable PublicKey publicKey) {
+        this("SHA256WithRSA", privateKey, publicKey);
     }
 
-    public StandardSigner(String algorithm, @Nullable PublicKey publicKey, @Nullable PrivateKey privateKey) {
+    public AsymmetricSigner(String algorithm, @Nullable PrivateKey privateKey, @Nullable PublicKey publicKey) {
         this.algorithm = Objects.requireNonNull(algorithm);
         checkKeyPair(publicKey, privateKey);
         this.publicKey = publicKey;

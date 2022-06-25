@@ -21,9 +21,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Load peacetrue-gradle
-      run: wget -O - https://raw.githubusercontent.com/peacetrue/peacetrue-gradle/master/install.sh | bash
-
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:

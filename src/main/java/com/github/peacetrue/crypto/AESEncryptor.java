@@ -23,7 +23,7 @@ public class AESEncryptor implements ByteEncryptor {
 
     public static final String TRANSFORMATION_ECB = "AES/ECB/PKCS5Padding";
     public static final String TRANSFORMATION_CBC = "AES/CBC/PKCS5Padding";
-    private static final int IV_LENGTH = 16;
+    public static final int IV_LENGTH = 16;
     private static final IVGenerator IV_GENERATOR = new IVGenerator() {
         @Override
         public byte[] generateIV() {
@@ -107,7 +107,7 @@ public class AESEncryptor implements ByteEncryptor {
      */
     @SuppressWarnings("java:S3329")
     public static AESEncryptor buildCBC(SecretKey secretKey, byte[] iv) {
-        return new AESEncryptor(TRANSFORMATION_CBC, secretKey, new IvParameterSpec(iv, 0, 16));
+        return new AESEncryptor(TRANSFORMATION_CBC, secretKey, new IvParameterSpec(iv, 0, IV_LENGTH));
     }
 
     /**
@@ -184,7 +184,7 @@ public class AESEncryptor implements ByteEncryptor {
     @Getter
     @AllArgsConstructor
     private static class CiphertextIV {
-        private byte[] ciphertext;
-        private byte[] iv;
+        private final byte[] ciphertext;
+        private final byte[] iv;
     }
 }

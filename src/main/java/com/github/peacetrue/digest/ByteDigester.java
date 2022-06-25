@@ -7,18 +7,18 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
- * Hash 摘要者。
+ * 字节数组摘要者。
  *
  * @author peace
  **/
-public interface HashDigester extends Digester<byte[]> {
+public interface ByteDigester extends Digester<byte[]> {
 
-    HashDigester MD5 = message -> digest("MD5", message);
-    HashDigester SHA256 = message -> digest("SHA-256", message);
-    HashDigester SHA512 = message -> digest("SHA-512", message);
+    ByteDigester MD5 = message -> digest("MD5", message);
+    ByteDigester SHA256 = message -> digest("SHA-256", message);
+    ByteDigester SHA512 = message -> digest("SHA-512", message);
 
     @Override
-    default boolean match(byte[] message, byte[] digest) {
+    default boolean verify(byte[] message, byte[] digest) {
         return Arrays.equals(digest(message), digest);
     }
 

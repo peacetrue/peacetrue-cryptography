@@ -5,6 +5,6 @@ start_page: ROOT:index.adoc
 asciidoc:
   attributes:
     numbered: '@'
-    project-name: 'peacetrue-cryptography'
+    app-name: 'peacetrue-cryptography'
 nav:
   - modules/ROOT/nav.adoc

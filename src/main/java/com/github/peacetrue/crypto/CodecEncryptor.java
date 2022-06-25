@@ -5,11 +5,11 @@ import com.github.peacetrue.codec.Codec;
 import java.util.Objects;
 
 /**
- * 字符串加解密器。
+ * 编解码代理加解密器。
  *
  * @author peace
  **/
-public class StringEncryptor implements Encryptor<String> {
+public class CodecEncryptor implements Encryptor<String> {
 
     private final Encryptor<byte[]> encryptor;
     private final Codec outer;
@@ -21,7 +21,7 @@ public class StringEncryptor implements Encryptor<String> {
      *
      * @param encryptor 加解密器
      */
-    public StringEncryptor(Encryptor<byte[]> encryptor) {
+    public CodecEncryptor(Encryptor<byte[]> encryptor) {
         this(encryptor, Codec.CHARSET_UTF8, Codec.HEX);
     }
 
@@ -32,7 +32,7 @@ public class StringEncryptor implements Encryptor<String> {
      * @param outer     外层加解码器
      * @param inner     内层加解码器
      */
-    public StringEncryptor(Encryptor<byte[]> encryptor, Codec outer, Codec inner) {
+    public CodecEncryptor(Encryptor<byte[]> encryptor, Codec outer, Codec inner) {
         this.encryptor = Objects.requireNonNull(encryptor);
         this.outer = Objects.requireNonNull(outer);
         this.inner = Objects.requireNonNull(inner);
