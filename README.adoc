@@ -1,1 +1,1 @@
-/Users/xiayx/Documents/Projects/peacetrue-cryptography/docs/antora/modules/ROOT/pages/index.adoc
+docs/antora/modules/ROOT/pages/index.adoc
