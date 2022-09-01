@@ -3,6 +3,7 @@ name: build
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,28 +14,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 单元测试前置准备
+    - name: Collect Workflow Telemetry
+      uses: runforesight/foresight-workflow-kit-action@v1
+      with:
+        api_key: 6d66f622-6961-4fff-a0a4-3c46a0ba8aee
+
     - uses: actions/checkout@v3
 
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
+        java-version: '8'
         distribution: 'temurin'
 
+    # 使用 Gradle 构建
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: build
 
-#https://foresight.thundra.io/start/integrate-github-test-runs
-    - name: Foresight Test Report Uploader
-      if: success()
-      uses: actions/upload-artifact@v2
+    # 单元测试
+    - name: Analyze Test and/or Coverage Results
+      uses: runforesight/foresight-test-kit-action@v1
+      if: ${{ always() }}
       with:
-        name: test-result-junit
-        path: build/test-results/test
+        api_key: 6d66f622-6961-4fff-a0a4-3c46a0ba8aee
+        test_format: JUNIT
+        test_framework: JUNIT
+        test_path: build/test-results/test
+        coverage_format: JACOCO/XML
+        coverage_path: build/reports/jacoco/test
 
-#https://github.com/marketplace/actions/codecov
+    # 覆盖率测试
     - name: Codecov
       uses: codecov/codecov-action@v3.1.0
       if: success()

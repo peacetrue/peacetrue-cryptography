@@ -1,2 +1,3 @@
 * xref:index.adoc[]
+* xref:design.adoc[]
 * xref:version.adoc[]
